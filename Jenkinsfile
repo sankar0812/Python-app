@@ -17,7 +17,12 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh ' docker push sankar0812/pythonapp:$BUILD_NUMBER'
+                sh "docker push sankar0812/pythonapp:$BUILD_NUMBER"
+            }
+        }
+        stage("run docker container"){
+            steps{
+                sh "docker run -d --name python -p 8090:8090 sankar0812/pythonapp:$BUILD_NUMBER"
             }
         }
 }
