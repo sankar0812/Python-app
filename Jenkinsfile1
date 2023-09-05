@@ -1,1 +1,12 @@
-pipeline
+pipeline {
+    agent any 
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('docker-hub-sankar')
+    }
+    stages { 
+
+        stage('Build docker image') {
+            steps {  
+                sh ' docker build -t sankar0812/pythonapp:$BUILD_NUMBER .'
+            }
+        }
