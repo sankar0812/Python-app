@@ -1,8 +1,5 @@
 pipeline {
-    agent any 
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker-hub-sankar')
-    }
+    agent any
     stages { 
 
         stage('Build docker image') {
@@ -10,3 +7,10 @@ pipeline {
                 sh ' docker build -t sankar0812/pythonapp:$BUILD_NUMBER .'
             }
         }
+        stage("run docker container"){
+            steps{
+                sh "docker run -d --name python -p 8090:8090 sankar0812/pythonapp:$BUILD_NUMBER"
+            }
+        }
+    }
+}
